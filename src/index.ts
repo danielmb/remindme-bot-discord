@@ -102,22 +102,15 @@ const handleAutocomplete = async (
 
 setInterval(async () => {
   const reminders = await getReminders();
-  console.log(reminders);
   for (const reminder of reminders) {
     const now = new Date();
     if (reminder.date.getTime() < now.getTime()) {
       const userId = reminder.userId;
       const channelId = reminder.channelID;
       const reminderId = reminder._id;
-      console.log('Deleting reminder');
       await deleteReminder(reminderId);
-      console.log('Reminder deleted');
-      console.log(reminder.date.getTime(), now.getTime());
-      console.log(reminder.date.getTime() < now.getTime());
       const channel = client.channels.cache.get(channelId);
-      console.log(channel);
       if (channel && 'send' in channel) {
-        console.log('Sending reminder');
         channel.send(`<@${userId}> ${reminder.reminder}`);
       }
     }

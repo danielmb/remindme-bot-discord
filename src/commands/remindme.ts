@@ -30,7 +30,6 @@ export async function execute(interaction: discord.CommandInteraction) {
   const message = interaction.options.get('message')?.value;
   const date = interaction.options.get('dateandtime')?.value;
   const until = interaction.options.get('until')?.value;
-  console.log('Executing remindme command');
   let finalDate: Date | null = null;
   await interaction.reply('Setting up reminder...');
   if (date && typeof date === 'string') {
@@ -45,7 +44,6 @@ export async function execute(interaction: discord.CommandInteraction) {
       parseInt(minute),
       parseInt(second),
     );
-    console.log(dateObject);
     const now = new Date();
     finalDate = new Date(now.getTime() + dateObject.getTime() - now.getTime());
   }
@@ -84,7 +82,6 @@ export async function execute(interaction: discord.CommandInteraction) {
     const now = new Date();
     finalDate = new Date(now.getTime() + dateObject.getTime() - now.getTime());
   }
-  console.log(finalDate);
   if (finalDate) {
     const msg = typeof message === 'string' ? message : 'Reminder';
     const time = finalDate.getTime() - new Date().getTime();
